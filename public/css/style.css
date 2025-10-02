@@ -1,0 +1,95 @@
+body {
+    background-color: lightblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form {
+    width: 40%;
+    height: 70%;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+
+.btn-tambah {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.row-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 10px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    a {
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 13px;
+        margin-right: 5px;
+    }
+
+    a[href*="update"] {
+        background-color: #2196F3;
+        color: white;
+    }
+
+    a[href*="delete"] {
+        background-color: #f44336;
+        color: white;
+    }
+
+    a:hover {
+        opacity: 0.85;
+    }
+
