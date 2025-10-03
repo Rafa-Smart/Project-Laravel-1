@@ -21,8 +21,13 @@ class UpdateBukuRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+         return [
+            'id'=>'required',
+            'idcategory'=>'required',
+            'judul'=>'required',
+            'penulis'=>'required',
+            'penerbit'=>'required',
+            'tahun'=>'required',
         ];
     }
 }

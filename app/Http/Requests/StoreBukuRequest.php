@@ -23,7 +23,7 @@ class StoreBukuRequest extends FormRequest
     {
         return [
             'id'=>'required',
-            'idcategory'=>'required',
+            'category_id'=>'required',
             'judul'=>'required',
             'penulis'=>'required',
             'penerbit'=>'required',

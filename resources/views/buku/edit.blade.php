@@ -184,6 +184,15 @@
                     @include('templates.header')
                     @include('templates.navigation')
                     <h2>Edit Buku</h2>
+                     @if ($errors->any())
+                            <div class="alert alert-danger col-md-6">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     <form action="{{ route('buku.update', $buku->id) }}" method="POST">
                         @csrf
                         @method('PUT')

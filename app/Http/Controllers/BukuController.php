@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBukuRequest;
-use Exception;
-use PDOException;
 use App\Models\Buku;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use PDOException;
 
 class BukuController extends Controller
 {
@@ -20,27 +19,32 @@ class BukuController extends Controller
         try {
             Buku::create($request->all());
             DB::commit();
-             return redirect('buku')->with('success', 'pesan');
-            } catch (Exception | PDOException $e) {
-                DB::rollBack();
-                return redirect('buku')->with('error', $request->error());
+
+            return redirect('buku')->with('success', 'pesan');
+        } catch (Exception|PDOException $e) {
+            DB::rollBack();
+
+            return redirect('buku')->with('error', $request->error());
         }
 
     }
 
-    public function tampilCreate(){
+    public function tampilCreate()
+    {
         return view('buku.form');
     }
 
     public function index()
     {
         $data = Buku::get();
-        return view("templates.layout", compact('data'));
+
+        return view('templates.layout', compact('data'));
     }
 
     public function edit($id)
     {
         $buku = Buku::findOrFail($id);
+
         return view('buku.edit', compact('buku'));
     }
 
@@ -52,6 +56,19 @@ class BukuController extends Controller
             'penerbit' => 'required',
             'tahun' => 'required|numeric',
         ]);
+        DB::beginTransaction();
+        try {
+
+            $buku = Buku::findOrFail($id);
+            $buku->update($request->all());
+            DB::commit();
+
+            return redirect('buku')->with('success', 'pesan');
+        } catch (Exception|PDOException $e) {
+            DB::rollBack();
+
+            return redirect('buku')->with('error', $request->error());
+        }
 
         $buku = Buku::findOrFail($id);
         $buku->update($request->all());
@@ -64,7 +81,6 @@ class BukuController extends Controller
         $buku = Buku::findOrFail($id);
         $buku->delete();
 
-        return redirect("buku");
+        return redirect('buku');
     }
-
 }

@@ -190,24 +190,23 @@
                         </a>
                     </div>
 
-                    <!-- Tabel Data Buku -->
-                    <div class="table-responsive">
-                        @if (Session::has('message'))
-                            <p style="display: block"
-                                class="alert {{ Session::get('alert-class', 'alert-info') }} p-alert">
-                                {{ Session::get('message') }}</p>
-                            {{-- disini kita pake js aja --}}
-                            <script>
-                                let pData = document.querySelector('.p-alert');
+                    @if (Session::has('message'))
+                    <p style="display: block" class="alert {{ Session::get('alert-class', 'alert-info') }} p-alert">
+                        {{ Session::get('message') }}</p>
+                    {{-- disini kita pake js aja --}}
+                    <script>
+                        let pData = document.querySelector('.p-alert');
 
-                                function tampilAlertSuccess() {
-                                    setTimeout((() => {
-                                        pData.style.display = 'none';
-                                    }), 2000);
-                                }
-                                tampilAlertSuccess();
-                            </script>
-                        @endif
+                        function tampilAlertSuccess() {
+                            setTimeout((() => {
+                                pData.style.display = 'none';
+                            }), 2000);
+                        }
+                        tampilAlertSuccess();
+                    </script>
+                @endif
+
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover text-center align-middle mt-3">
                             <thead class="table-dark">
                                 <tr>
@@ -237,14 +236,12 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('buku.destroy', $m->id) }}" method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="bi bi-trash"></i> Delete
-                                                </button>
-                                            </form>
+                                            <!-- Tombol Trigger Modal -->
+                                            <button type="button" class="btn btn-danger btn-delete"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $m->id }}">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
                                         </td>
                                     </tr>
                                     @php $i++; @endphp
@@ -252,6 +249,48 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Modal Konfirmasi Delete -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="deleteModalLabel"><i
+                                            class="bi bi-exclamation-triangle"></i> Konfirmasi Hapus</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak bisa dibatalkan.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Batal</button>
+                                    <form id="deleteForm" method="POST" action="">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script untuk set action form -->
+                    <script>
+                        const deleteModal = document.getElementById('deleteModal');
+                        const deleteForm = document.getElementById('deleteForm');
+
+                        deleteModal.addEventListener('show.bs.modal', function(event) {
+                            const button = event.relatedTarget; // tombol delete yg diklik
+                            const id = button.getAttribute('data-id'); // ambil id dari data-id
+
+                            // set action form sesuai route
+                            deleteForm.action = "/buku/" + id;
+                        });
+                    </script>
+
 
                     <!--end::Row-->
                 </div>
