@@ -19,9 +19,19 @@ Route::get('/test', [HomeController::class, 'index']);
 Route::get('/', [BukuController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/contact', [HomeController::class, 'contact']);
-Route::post('/buku', [BukuController::class, 'store']);
-Route::get('/data', [BukuController::class, 'index']);
 
+
+// Route::post('/buku', [BukuController::class, 'store']);
+// Route::get('/buku', [BukuController::class, 'index']);
+
+
+// ini udah mewakili get dan post
+
+
+Route::resource('buku', BukuController::class);
+
+// kalo mau buat model yang lengkap
+// make:model Buku --
 
 Route::get('/data/create', [BukuController::class, 'tampilCreate']);
 

@@ -10,20 +10,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("category_id");
-            $table->string("judul");
-            $table->string("penulis");
-            $table->string("penerbit");
-            $table->year("tahun");
-            $table->timestamps();
+        // Schema::create('books', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId("category_id");
+        //     $table->string("judul");
+        //     $table->string("penulis");
+        //     $table->string("penerbit");
+        //     $table->year("tahun");
+        //     $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')
-                ->cascadeOnUpdate()->restrictOnDelete();
+        //     $table->foreign('category_id')->references('id')->on('categories')
+        //         ->cascadeOnUpdate()->restrictOnDelete();
             
 
-        });
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        // Schema::dropIfExists('books');
     }
 };

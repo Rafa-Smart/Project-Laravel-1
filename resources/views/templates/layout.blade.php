@@ -183,90 +183,109 @@
                     <!--begin::Row-->
                     @include('templates.header')
                     @include('templates.navigation')
-<!-- Tombol Tambah Buku -->
-<div class="mb-3">
-    <a href="{{ url('data/create') }}" class="btn btn-success">
-        <i class="bi bi-plus-circle"></i> Tambah Buku
-    </a>
-</div>
-
-<!-- Tabel Data Buku -->
-<div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover text-center align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>No.</th>
-                <th>Judul</th>
-                <th>Penulis</th>
-                <th>Penerbit</th>
-                <th>Tahun</th>
-                <th colspan="2">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php $i = 1; @endphp
-            @foreach ($data as $m)
-                <tr>
-                    <td>{{ $i }}</td>
-                    <td>{{ $m->judul }}</td>
-                    <td>{{ $m->penulis }}</td>
-                    <td>{{ $m->penerbit }}</td>
-                    <td>{{ $m->tahun }}</td>
-                    <td>
-                        <a href="{{ route('buku.edit', $m->id) }}" class="btn btn-warning text-white">
-                            <i class="bi bi-pencil-square"></i> Edit
+                    <!-- Tombol Tambah Buku -->
+                    <div class="mb-3">
+                        <a href="{{ url('data/create') }}" class="btn btn-success">
+                            <i class="bi bi-plus-circle"></i> Tambah Buku
                         </a>
-                    </td>
-                    <td>
-                        <form action="{{ route('buku.destroy', $m->id) }}" method="POST"
-                              onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @php $i++; @endphp
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                    </div>
 
-                <!--end::Row-->
-            </div>
-            <!--end::Container-->
-    </div>
-    <!--end::App Content Header-->
-    <!--begin::App Content-->
-    <div class="app-content">
-        <!--begin::Container-->
-        <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
+                    <!-- Tabel Data Buku -->
+                    <div class="table-responsive">
+                        @if (Session::has('message'))
+                            <p style="display: block"
+                                class="alert {{ Session::get('alert-class', 'alert-info') }} p-alert">
+                                {{ Session::get('message') }}</p>
+                            {{-- disini kita pake js aja --}}
+                            <script>
+                                let pData = document.querySelector('.p-alert');
 
+                                function tampilAlertSuccess() {
+                                    setTimeout((() => {
+                                        pData.style.display = 'none';
+                                    }), 2000);
+                                }
+                                tampilAlertSuccess();
+                            </script>
+                        @endif
+                        <table class="table table-bordered table-striped table-hover text-center align-middle mt-3">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>idCategory</th>
+                                    <th>Judul</th>
+                                    <th>Penulis</th>
+                                    <th>Penerbit</th>
+                                    <th>Tahun</th>
+                                    <th colspan="2">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $i = 1; @endphp
+                                @foreach ($data as $m)
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $m->category_id }}</td>
+                                        <td>{{ $m->judul }}</td>
+                                        <td>{{ $m->penulis }}</td>
+                                        <td>{{ $m->penerbit }}</td>
+                                        <td>{{ $m->tahun }}</td>
+                                        <td>
+                                            <a href="{{ route('buku.edit', $m->id) }}"
+                                                class="btn btn-warning text-white">
+                                                <i class="bi bi-pencil-square"></i> Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('buku.destroy', $m->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @php $i++; @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--end::Row-->
+                </div>
+                <!--end::Container-->
             </div>
-        </div>
-        <!--end::Container-->
-    </div>
-    <!--end::App Content-->
-    </main>
-    <!--end::App Main-->
-    <!--begin::Footer-->
-    <footer class="app-footer">
-        <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Anything you want</div>
-        <!--end::To the end-->
-        <!--begin::Copyright-->
-        <strong>
-            Copyright &copy; 2014-2025&nbsp;
-            <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
-        </strong>
-        All rights reserved.
-        <!--end::Copyright-->
-    </footer>
-    <!--end::Footer-->
+            <!--end::App Content Header-->
+            <!--begin::App Content-->
+            <div class="app-content">
+                <!--begin::Container-->
+                <div class="container-fluid">
+                    <!--begin::Row-->
+                    <div class="row">
+
+                    </div>
+                </div>
+                <!--end::Container-->
+            </div>
+            <!--end::App Content-->
+        </main>
+        <!--end::App Main-->
+        <!--begin::Footer-->
+        <footer class="app-footer">
+            <!--begin::To the end-->
+            <div class="float-end d-none d-sm-inline">Anything you want</div>
+            <!--end::To the end-->
+            <!--begin::Copyright-->
+            <strong>
+                Copyright &copy; 2014-2025&nbsp;
+                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+            </strong>
+            All rights reserved.
+            <!--end::Copyright-->
+        </footer>
+        <!--end::Footer-->
     </div>
     <!--end::App Wrapper-->
     <!--begin::Script-->

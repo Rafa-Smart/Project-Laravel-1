@@ -2,15 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreBukuRequest;
+use Exception;
+use PDOException;
 use App\Models\Buku;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class BukuController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreBukuRequest $request)
     {
-        Buku::create($request->all());
-        return redirect("data");
+
+        // ini kita buat transaksi
+        DB::beginTransaction();
+        try {
+            Buku::create($request->all());
+            DB::commit();
+             return redirect('buku')->with('success', 'pesan');
+            } catch (Exception | PDOException $e) {
+                DB::rollBack();
+                return redirect('buku')->with('error', $request->error());
+        }
+
     }
 
     public function tampilCreate(){
@@ -41,7 +56,7 @@ class BukuController extends Controller
         $buku = Buku::findOrFail($id);
         $buku->update($request->all());
 
-        return redirect('data');
+        return redirect('buku');
     }
 
     public function destroy($id)
@@ -49,7 +64,7 @@ class BukuController extends Controller
         $buku = Buku::findOrFail($id);
         $buku->delete();
 
-        return redirect("data");
+        return redirect("buku");
     }
 
 }
