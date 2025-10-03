@@ -183,47 +183,57 @@
                     <!--begin::Row-->
                     @include('templates.header')
                     @include('templates.navigation')
-                    <button class='btn btn-primary'><a href='{{ url('data/create') }}' style="color:white;">Tambah Buku</a></button>
+<!-- Tombol Tambah Buku -->
+<div class="mb-3">
+    <a href="{{ url('data/create') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Tambah Buku
+    </a>
+</div>
 
-                    <table border="1" width="100%" class="mt-3">
-                        <tr>
-                            <th style="text-align: center">No.</th>
-                            <th style="text-align: center">Judul</th>
-                            <th style="text-align: center">Penulis</th>
-                            <th style="text-align: center">Penerbit</th>
-                            <th style="text-align: center">Tahun</th>
-                            <th colspan="2" style="text-align: center">Aksi</th>
-                        </tr>
-                        @php $i = 1; @endphp
-                        @foreach ($data as $m)
-                            <tr>
-                                <td style="text-align: center">{{ $i }}</td>
-                                <td style="text-align: center">{{ $m->judul }}</td>
-                                <td style="text-align: center">{{ $m->penulis }}</td>
-                                <td style="text-align: center">{{ $m->penerbit }}</td>
-                                <td style="text-align: center">{{ $m->tahun }}</td>
-                                <td style="text-align: center">
-                                <td style="text-align: center">
-                                    <button class="btn btn-primary"><a href="{{ route('buku.edit', $m->id) }}" style="color:white; ">Edit</a></button>
-                                </td>
+<!-- Tabel Data Buku -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>No.</th>
+                <th>Judul</th>
+                <th>Penulis</th>
+                <th>Penerbit</th>
+                <th>Tahun</th>
+                <th colspan="2">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $i = 1; @endphp
+            @foreach ($data as $m)
+                <tr>
+                    <td>{{ $i }}</td>
+                    <td>{{ $m->judul }}</td>
+                    <td>{{ $m->penulis }}</td>
+                    <td>{{ $m->penerbit }}</td>
+                    <td>{{ $m->tahun }}</td>
+                    <td>
+                        <a href="{{ route('buku.edit', $m->id) }}" class="btn btn-warning text-white">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('buku.destroy', $m->id) }}" method="POST"
+                              onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @php $i++; @endphp
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-                                </td>
-                                <td align="center">
-                                    <form action="{{ route('buku.destroy', $m->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-primary">Delete</button>
-                                    </form>
-                                </td>
-
-                            </tr>
-                            @php $i++; @endphp
-                        @endforeach
-                    </table>
-
-
-                </div>
                 <!--end::Row-->
             </div>
             <!--end::Container-->

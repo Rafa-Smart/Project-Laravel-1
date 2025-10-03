@@ -1,29 +1,3 @@
-<!-- <div class="container-form">
-    <div class="form">
-        <form action="{{ url('buku') }}" method="post">
-            @csrf
-            <label for="id">Id:</label>
-            <input type="text" name="id" id="id">
-            <label for="category_id">CategoryId:</label>
-            <input type="text" name="category_id" id="category_id">
-            <label for="judul">Judul:</label>
-            <input type="text" name="judul" id="judul">
-            <label for="penulis">Penulis:</label>
-            <input type="text" name="penulis" id="penulis">
-            <label for="penerbit">Penerbit:</label>
-            <input type="text" name="penerbit" id="penerbit">
-            <label for="tahun">Tahun:</label>
-            <input type="text" name="tahun" id="tahun"><br>
-            <button name="tambah" class="btn-tambah">Kirim</button>
-
-
-        </form>
-    </div>
-</div> -->
-
-
-
-
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
@@ -52,6 +26,7 @@
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
     <link rel="preload" href="./css/adminlte.css" as="style" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -511,6 +486,7 @@
         const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
         sparkline3.render();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <!--end::Script-->
 </body>
 <!--end::Body-->
